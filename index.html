@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+content="width=device-width, initil-scale=1.0">
+  <title>Notes App</title>
+  <style>
+    body {
+        font-weight: Arial, sans-sherif;
+        margin: 0;
+        padding: 20px;
+        background: #f5f5f5;
+        color: #333;
+    }
+
+    nav {
+        background: #222;
+        color: white;
+        padding: 10px;
+        display: flex;
+        gap: 10px;
+    }
+
+    nav button {
+        padding: 8px 12px;
+        border: none;
+        cursor: pointer;
+    }
+
+    section {
+        display: none;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    section.active {
+        display: block;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    textarea, input {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0 15px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+    }
+
+    button {
+        padding: 8px 12px;
+        margin-right: 5px;
+        margin-bottom: 10px;
+        border: none;
+        border-radius: 4px;
+        background: #4CAF50;
+        color: #fff;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background: #45a049;
+    }
+    #saveStatus {
+        font-style: italic;
+        color: green;
+        margin-top: 5px;
+    }
+
+    .home {
+        background: burlywood;
+    }
+
+    .school {
+        background:white;
+    }
+
+    .bible {
+        background: plum;
+    }
+
+    .planning {
+        background: pink;
+    }
+
+    .todo {
+        background: beige;
+    }
+
+    .journal {
+        background: grey;
+    }
+ </style>
+    </head>
+    <body>
+
+        <section id="homeSection" class="active home">
+            <h1>Welcome to Your Notes App 🤍</h1>
+            <P>Choose a section to get started:</P>
+            <button onclick="showSection('school')">📚 School Studies</button>
+            <button onclick="showSection('bible')">📖 Bible Studies</button>
+            <button onclick="showSection('planning')">🗓️ Planning</button>
+            <button onclick="showSection('todo')">✅ To-Do List</button>
+            <button onclick="showSection('journal')">✍🏽 Journal</button>
+        </section>
+
+        <section id="schoolSection" class="school">
+            <h2>📚 School Studies</h2>
+            <button onclick="showSection('home')">🏠 Back to Home</button>
+
+            <div>
+                <button onclick="newSchoolNote()">➕ New</button>
+                <button onclick="showSchoolWorks()">📂 Your Works</button>
+                <button onclick="showSchoolTrash()">🗑️ Trash</button>
+            </div>
+
+            <input id="subject" placeholder="Subject">
+            <input id="topic" placeholder="Topic">
+            <textarea id="definitions" placeholder="Definitions"></textarea>
+            <textarea id="keywords" placeholder="Keywords"></textarea>
+            <textarea id="notes" placeholder="Write your notes here..."></textarea>
+
+            <div>
+                <button onclick="saveSchoolNote()">🗃️ Save</button>
+                <button onclick="deleteSchoolNote()">🗑️ Delete</button>
+                <button onclick="toggleFavourite()">⭐ Favourite</button>
+            </div>
+
+            <div id="schoolList"></div>
+
+            <div id="saveStatusSchool"></div>
+        </section>
+
+        <section id="bibleSection" class="bible">
+            <h3>📖Bible Studies</h3>
+            <button onclick="showSection('home')">🏠 Back to Home</button>
+
+            <div>
+                <button onclick="newBibleNote()">➕ New</button>
+                <button onclick="showBibleWorks()">📂 Your Works</button>
+                <button onclick="showBibleTrash()">🗑️ Trash</button>
+            </div>
+
+
+            <label>Title:</label>
+            <input type="text" id="bibleTitle">
+
+            <label>Note:</label>
+            <textarea id="bibleNote"></textarea>
+
+            <label>Bible References:</label>
+            <input type="text" id="bibleRefs">
+
+            <label>Prayer:</label>
+            <textarea id="biblePrayer"></textarea>
+
+            <div>
+                <button onclick="saveBibleNote()">🗃️ Save</button>
+                <button onclick="deleteBibleNotes()">🗑️ Delete</button>
+                <button onclick="toggleFavourite()">⭐ Favourite</button>
+            </div>
+
+            <div id="saveStatusBible"></div>
+        </section>
+
+        <section id="planningSection" class="planning">
+            <h1>🗓️ Planning</h1>
+            <button onclick="showSection('home')">🏠 Back to Home</button>
+
+            <div>
+                <button onclick="newPlanningNote()">➕ New</button>
+                <button onclick="showPlanningNotes()">📂 Your Works</button>
+                <button onclick="showPlanningTrash()">🗑️ Trash</button>
+            </div>
+
+            <label>Breakfast:</label>
+            <textarea id="breakfast"></textarea>
+
+            <label>Lunch:</label>
+            <textarea id="lunch"></textarea>
+
+            <label>Dinner:</label>
+            <textarea id="dinner"></textarea>
+
+            <label>Daily Plan:</label>
+            <textarea id="dailyPlan"></textarea>
+
+            <div>
+                <button onclick="savePlanningNote()">🗃️ Save</button>
+                <button onclick="deletePlanningNote()">🗑️ Delete</button>
+                <button onclick="toggleFavourite()">⭐ Favourite</button>
+            </div>
+
+            <div id="saveStatusPlanning"></div>
+        </section>
+
+        <section id="todoSection" class="todo">
+            <h1>✅ To-Do List</h1>
+            <button onclick="showSection('home')">🏠 Back to Home</button>
+
+            <div>
+                <button onclick="newTodoNote()">➕ New</button>
+                <button onclick="showTodoList()">📂 Your Works</button>
+                <button onclick="showTodoTrash()">🗑️ Trash</button>
+            </div>
+
+            <label>Tasks:</label>
+            <textarea id="todoText"></textarea>
+
+            <div>
+                <button onclick="saveTodoNote()">🗃️ Save</button>
+                <button onclick="deleteTodoNote()">🗑️ Delete</button>
+                <button onclick="toggleTodoNote()">⭐ Favourite</button>
+            </div>
+
+            <div id="saveStatusTodo"></div>
+        </section>
+
+        <section id="journalSection" class="journal">
+            <h1>✍🏽 Journal</h1>
+            <button onclick="showSection('home')">🏠 Back to Home</button>
+
+            <div>
+                <button onclick="newJournalNote()">➕ New</button>
+                <button onclick="showJournalNote()">📂 Your Works</button>
+                <button onclick="showJournalTrash()">🗑️ Trash</button>
+            </div>
+
+            <label>Your Thoughts:</label>
+            <textarea id="journalText"></textarea>
+
+            <div>
+                <button onclick="saveJournalNotes()">🗃️ Save</button>
+                <button onclick="deleteJournalNotes()">🗑️ Delete</button>
+                <button onclick="toggleFavourite()">⭐ Favourite</button>
+            </div>
+
+            <div id="saveStatusJournal"></div>
+        </section>
+
+        <script>
+
+            function showSection(section) {
+                const sections = [
+                    "homeSection",
+                    "schoolSection",
+                    "bibleSection",
+                    "planningSection",
+                    "todoSection",
+                    "journalSection"
+                ];
+
+                sections.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = "none";
+                });
+
+                document.getElementById(section + "Section").style.display = "block";
+
+                localStorage.setItem("currentSection", section);
+            }
+
+            const subject = document.getElementById("subject");
+            const topic = document.getElementById("topic");
+            const definitions = document.getElementById("definitions");
+            const keywords = document.getElementById("keywords");
+            const notes = document.getElementById("notes");
+            const saveStatus = document.getElementById("saveStatus");
+
+            subject.addEventListener("input", autoSave);
+            topic.addEventListener("input", autoSave);
+            definitions.addEventListener("input", autoSave);
+            keywords.addEventListener("input", autoSave);
+            notes.addEventListener("input", autoSave);
+
+            function autoSave() {
+                localStorage.setItem("school_subject", subject.value);
+                localStorage.setItem("school_topic", topic.value);
+                localStorage.setItem("school_definitions", definitions.value);
+                localStorage.setItem("school_keywords", keywords.value);
+                localStorage.setItem("school_notes", notes.value);
+                saveStatus.textContent = "Saved";
+            }
+
+            const bibleTitle = document.getElementById("bibleTitle");
+            const bibleNotes = document.getElementById("bibleNotes");
+            const bibleRefs = document.getElementById("bibleRefs");
+            const biblePrayer = document.getElementById("biblePrayer");
+            const saveStatusBible = document.getElementById("saveStatusBible");
+
+            [bibleTitle, bibleNotes, bibleRefs, biblePrayer].forEach(field => {
+                field.addEventListener("input", () => {
+                    localStorage.setItem(field.id, field.value);
+                    saveStatusBible.textContent = "Saved";
+                });
+            });
+
+            const breakfast = document.getElementById("breakfast");
+            const lunch = document.getElementById("lunch");
+            const dinner = document.getElementById("dinner");
+            const saveStatusPlanning = document.getElementById(saveStatusPlanning);
+
+            [breakfast, lunch, dinner].forEach(field => {
+                field.addEventListener("input", () => {
+                    localStorage.setItem(field.id, field.value);
+                    saveStatusPlanning.textContent = "Saved";
+                });
+            });
+
+            const todoText = document.getElementById("todoText");
+            const saveStatusTodo = document.getElementById("saveStatusTodo");
+
+            todoText.addEventListener("input", () => {
+                localStorage.setItem("todoText", todoText.value);
+                saveStatusTodo.textContent = "Saved";
+            });
+
+            const journalText = document.getElementById("journalText");
+            const saveStatusJournal = document.getElementById("saveStatusJournal");
+
+            journalText.addEventListener("input", () => {
+                localStorage.setItem("journalText", journalText.value);
+                saveStatusJournal.textContent = "Saved";
+            });
+
+            document.addEventListener("DOMContentLoaded" ,
+        function () {
+
+            subject.value = localStorage.getItem("school_subject") || "";
+            topic.value = localStorage.getItem("school_topic") || "";
+            definitions.value = localStorage.getItem("school_definitions") || "";
+            keywords.value = localStorage.getItem("school_keywords") || "";
+            notes.value = localStorage.getItem("school_notes") || "";
+
+            bibleTitle.value = localStorage.getItem("bibleTitle") || "";
+            bibleNotes.value = localStorage.getItem("bibleNotes") || "";
+            bibleRefs.value = localStorage.getItem("bibleRefs") || "";
+            biblePrayer.value = localStorage.getItem("biblePrayer") || "";
+
+            breakfast.value = localStorage.getItem("breakfast") || "";
+            lunch.value = localStorage.getItem("lunch") || "";
+            dinner.value = localStorage.getItem("dinner") || "";
+
+            todoText.value = localStorage.getItem("todoText") || "";
+
+            journalText.value = localStorage.getItem("journalText") || "";
+
+            const lastSection = localStorage.getItem("currentSection") || "home";
+            showSection(lastSection);
+        });
+            </script>
+    </body>
+</html>
